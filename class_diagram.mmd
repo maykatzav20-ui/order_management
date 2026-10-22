@@ -1,5 +1,9 @@
 
 classDiagram
+    direction TB
+
+    %% ORDER MANAGEMENT SYSTEM
+
     class Customer {
         -int id
         -str first_name
@@ -72,9 +76,59 @@ classDiagram
     Order <|-- RegularOrder
     Order <|-- VIPOrder
     Gift <|-- SurpriseGift
-    Customer "1" --> "0..*" Order : customer orders
+
+    Customer "1" --> "0..*" Order : places
     Order "1" *-- "1..*" OrderItem : contains
     Customer "1" o-- "0..*" OrderItem : favorites
     Customer --> Gift : receives
     Customer --> CustomerType
     Order --> PaymentType
+
+    %% ANIMAL AND PET BONUS
+
+    class Animal {
+        <<abstract>>
+        #int _legs
+        +legs
+        +walk()
+        +eat()
+    }
+
+    class Pet {
+        <<interface>>
+        +getName() str*
+        +setName(name)*
+        +play()*
+    }
+
+    class Spider {
+        +__init__()
+        +eat()
+    }
+
+    class Cat {
+        -str _name
+        +__init__(name)
+        +getName() str
+        +setName(name)
+        +play()
+        +eat()
+    }
+
+    class Fish {
+        -str _name
+        +__init__(name)
+        +getName() str
+        +setName(name)
+        +play()
+        +walk()
+        +eat()
+    }
+
+    Animal <|-- Spider
+    Animal <|-- Cat
+    Animal <|-- Fish
+
+    Pet <|.. Cat
+    Pet <|.. Fish
+
