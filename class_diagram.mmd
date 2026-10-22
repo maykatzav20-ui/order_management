@@ -2,8 +2,6 @@
 classDiagram
     direction TB
 
-    %% ORDER MANAGEMENT SYSTEM
-
     class Customer {
         -int id
         -str first_name
@@ -84,10 +82,7 @@ classDiagram
     Customer --> CustomerType
     Order --> PaymentType
 
-    %% ANIMAL AND PET BONUS
-
     class Animal {
-        <<abstract>>
         #int _legs
         +legs
         +walk()
@@ -95,7 +90,7 @@ classDiagram
     }
 
     class Pet {
-        <<interface>>
+        <<abstract>>
         +getName() str*
         +setName(name)*
         +play()*
@@ -131,4 +126,3 @@ classDiagram
 
     Pet <|.. Cat
     Pet <|.. Fish
-
