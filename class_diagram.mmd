@@ -1,0 +1,80 @@
+
+classDiagram
+    class Customer {
+        -int id
+        -str first_name
+        -str last_name
+        -str email
+        -str delivery_address
+        -CustomerType customer_type
+        -float discount
+        -List favorite_items
+        -Gift gift
+        +add_favorite_item(item)
+        +remove_favorite_item(name)
+        +update_favorite_items(add, remove)
+        +take_gift(gift)
+        +open_gift()
+    }
+
+    class OrderItem {
+        -int id
+        +str name
+        +float price
+        +__str__()
+    }
+
+    class Order {
+        <<abstract>>
+        -int id
+        +str name
+        +str delivery_address
+        +List items
+        +Customer customer
+        +PaymentType payment_type
+        +date order_date
+        +float total_price
+        +calculate_total_price()*
+        +__str__()
+    }
+
+    class RegularOrder {
+        +calculate_total_price()
+    }
+
+    class VIPOrder {
+        +calculate_total_price()
+    }
+
+    class Gift {
+        <<abstract>>
+        +open_gift()*
+    }
+
+    class SurpriseGift {
+        +open_gift()
+    }
+
+    class CustomerType {
+        <<enumeration>>
+        REGULAR
+        VIP
+    }
+
+    class PaymentType {
+        <<enumeration>>
+        CREDIT_CARD
+        CASH
+        CHECK
+        OTHER
+    }
+
+    Order <|-- RegularOrder
+    Order <|-- VIPOrder
+    Gift <|-- SurpriseGift
+    Customer "1" --> "0..*" Order : customer orders
+    Order "1" *-- "1..*" OrderItem : contains
+    Customer "1" o-- "0..*" OrderItem : favorites
+    Customer --> Gift : receives
+    Customer --> CustomerType
+    Order --> PaymentType
